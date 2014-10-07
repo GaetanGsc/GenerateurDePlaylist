@@ -1,7 +1,8 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.3
+
 
 # Fonction pour controler si les arguments sont correctement renseigner
-def verifArguments(liste_arg):
+def verifArguments(liste_arg, nb):
     logging.info("verifie argument 2")
     try:
         nb = int(liste_arg[1])
@@ -14,7 +15,6 @@ def verifArguments(liste_arg):
             logging.warning('La quantité saisie est supérieur à 100')
             logging.info('Nombre supérieur à 100 transformé en : ' + str(nb))
 
-        #setattr(liste_arg,nomArg, [liste_arg[0],nb])
         return True
     except ValueError:
         print ("Impossible de convertir \"" + liste_arg[1] + "\" en nombre entier !")
@@ -54,9 +54,12 @@ for ARG in ['genre','artiste','album','titre']:
     if getattr(args, ARG) is not None:
         logging.info(' Argument --' + ARG + ' :\t' + getattr(args, ARG)[0] + '  ' + getattr(args, ARG)[1])
 # On vérifie que le 2em sous argument de genre est bien un entier naturel
-if verifArguments(args.genre) == True:
-    print ('ok')
-    logging.debug(' *****************************************')
+        setattr(args, ARG, verifArguments(getattr(args, ARG), ARG))
+
+print ('ok')
+    #if verifArguments(args.genre, 'genre' ):
+        #print ('ok')
+logging.debug(' *****************************************')
 
 #variable de poucentage
 
